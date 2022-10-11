@@ -1,3 +1,4 @@
+const BaseError = require("../middlewares/baseError");
 const postDao = require("../models/postDao");
 
 const postRegistration = async (companyId, position, compensation, content, technologyStack) => {
@@ -16,9 +17,17 @@ const getPost = async () => {
     return await postDao.getPost();
 }
 
+const getSearchPost = async (search) => {
+    const result = await postDao.getSearchPost(search);
+    if (result.length === 0) throw new BaseError("NO RESULTS WERE FOUND FOR YOUR SEARCH.", 400);
+
+    return result;
+}
+
 module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPost
+    getPost,
+    getSearchPost
 }

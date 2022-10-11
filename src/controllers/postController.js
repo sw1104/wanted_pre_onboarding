@@ -28,8 +28,14 @@ const postDelete = async (req, res) => {
     res.status(200).json({ message: "POST DELETED" })
 }
 
+const getPost = async (req, res) => {
+    const data = await postService.getPost();
+    res.status(200).json(data);
+}
+
 module.exports = {
     postRegistration,
     postEdit,
-    postDelete
+    postDelete,
+    getPost
 }

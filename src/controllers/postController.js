@@ -7,7 +7,7 @@ const postRegistration = async (req, res) => {
     if (!companyId || !position || !compensation || !content || !technologyStack) throw new baseError("KEY ERROR", 400)
 
     await postService.postRegistration(companyId, position, compensation, content, technologyStack);
-    res.status(201).json({ message: "Job posting completed" });
+    res.status(201).json({ message: "JOB POSTING COMPLETED" });
 }
 
 const postEdit = async (req, res) => {
@@ -17,10 +17,19 @@ const postEdit = async (req, res) => {
     if (!companyId || !postId) throw new baseError("KEY ERROR", 400)
 
     await postService.postEdit(companyId, postId, position, compensation, content, technologyStack)
-    res.status(201).json({ messgae: "Post edited" })
+    res.status(201).json({ messgae: "POST EDITED" })
+}
+
+const postDelete = async (req, res) => {
+    const { companyId, postId } = req.params;
+    if (!companyId || !postId) throw new baseError("KEY ERROR", 400)
+
+    await postService.postDelete(companyId, postId)
+    res.status(200).json({ message: "POST DELETED" })
 }
 
 module.exports = {
     postRegistration,
-    postEdit
+    postEdit,
+    postDelete
 }

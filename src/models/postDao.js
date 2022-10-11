@@ -33,7 +33,20 @@ const postEdit = async (companyId, postId, position, compensation, content, tech
         .execute()
 }
 
+const postDelete = async (companyId, postId) => {
+    return await AppDataSource
+        .createQueryBuilder()
+        .delete()
+        .from(Post)
+        .where({
+            id: postId,
+            company_id: companyId
+        })
+        .execute()
+}
+
 module.exports = {
     postRegistration,
-    postEdit
+    postEdit,
+    postDelete
 }

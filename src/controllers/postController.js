@@ -29,7 +29,15 @@ const postDelete = async (req, res) => {
 }
 
 const getPost = async (req, res) => {
+    console.log(req.params)
     const data = await postService.getPost();
+    res.status(200).json(data);
+}
+
+const getSearchPost = async (req, res) => {
+    const { search } = req.params;
+
+    const data = await postService.getSearchPost(search);
     res.status(200).json(data);
 }
 
@@ -37,5 +45,6 @@ module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPost
+    getPost,
+    getSearchPost
 }

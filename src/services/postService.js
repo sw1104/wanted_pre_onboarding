@@ -12,8 +12,13 @@ const postDelete = async (companyId, postId) => {
     return await postDao.postDelete(companyId, postId);
 }
 
+const getPost = async () => {
+    return await postDao.getPost();
+}
+
 module.exports = {
     postRegistration,
     postEdit,
-    postDelete
+    postDelete,
+    getPost
 }

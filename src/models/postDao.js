@@ -1,5 +1,6 @@
 const { AppDataSource } = require("./dataSource");
 const Post = require("../entities/Post");
+const Company = require("../entities/Company")
 
 const postRegistration = async (companyId, position, compensation, content, technologyStack) => {
     return await AppDataSource
@@ -45,8 +46,27 @@ const postDelete = async (companyId, postId) => {
         .execute()
 }
 
+const getPost = async () => {
+    return await AppDataSource
+        .createQueryBuilder()
+        .select([
+            "posts.id AS postId",
+            "posts.position AS position",
+            "posts.compensation AS compensation",
+            "posts.content AS content",
+            "posts.technology_stack AS technologyStack",
+            "companies.name AS companyName",
+            "companies.location AS companyLocation",
+            "companies.region AS companyRegion"
+        ])
+        .from(Post, "posts")
+        .innerJoin(Company, "companies", "posts.company_id = companies.id")
+        .execute()
+}
+
 module.exports = {
     postRegistration,
     postEdit,
-    postDelete
+    postDelete,
+    getPost
 }

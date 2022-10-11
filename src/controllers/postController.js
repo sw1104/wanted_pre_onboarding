@@ -14,22 +14,28 @@ const postEdit = async (req, res) => {
     const { companyId, postId } = req.params;
     const { position, compensation, content, technologyStack } = req.body;
 
-    if (!companyId || !postId) throw new baseError("KEY ERROR", 400)
+    if (!companyId || !postId) throw new baseError("KEY ERROR", 400);
 
-    await postService.postEdit(companyId, postId, position, compensation, content, technologyStack)
-    res.status(201).json({ messgae: "POST EDITED" })
+    await postService.postEdit(companyId, postId, position, compensation, content, technologyStack);
+    res.status(201).json({ messgae: "POST EDITED" });
 }
 
 const postDelete = async (req, res) => {
     const { companyId, postId } = req.params;
-    if (!companyId || !postId) throw new baseError("KEY ERROR", 400)
+    if (!companyId || !postId) throw new baseError("KEY ERROR", 400);
 
-    await postService.postDelete(companyId, postId)
-    res.status(200).json({ message: "POST DELETED" })
+    await postService.postDelete(companyId, postId);
+    res.status(200).json({ message: "POST DELETED" });
+}
+
+const getPost = async (req, res) => {
+    const data = await postService.getPost();
+    res.status(200).json(data);
 }
 
 module.exports = {
     postRegistration,
     postEdit,
-    postDelete
+    postDelete,
+    getPost
 }

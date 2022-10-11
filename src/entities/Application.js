@@ -29,7 +29,7 @@ module.exports = new EntitySchema({
             joinColumn: {
                 name: "user_id"
             },
-            cascade: true
+            onDelete: "CASCADE"
         },
         Post: {
             target: 'posts',
@@ -37,7 +37,7 @@ module.exports = new EntitySchema({
             joinColumn: {
                 name: 'post_id',
             },
-            cascade: true
+            onDelete: "CASCADE"
         },
     },
     uniques: [

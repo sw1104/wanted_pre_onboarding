@@ -16,6 +16,24 @@ const postRegistration = async (companyId, position, compensation, content, tech
         .execute()
 }
 
+const postEdit = async (companyId, postId, position, compensation, content, technologyStack) => {
+    return await AppDataSource
+        .createQueryBuilder()
+        .update(Post)
+        .set({
+            position: position,
+            compensation: compensation,
+            content: content,
+            technology_stack: technologyStack
+        })
+        .where({
+            id: postId,
+            company_id: companyId
+        })
+        .execute()
+}
+
 module.exports = {
-    postRegistration
+    postRegistration,
+    postEdit
 }

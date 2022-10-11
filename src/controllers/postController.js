@@ -29,7 +29,6 @@ const postDelete = async (req, res) => {
 }
 
 const getPostList = async (req, res) => {
-    console.log(req.params)
     const data = await postService.getPost();
     res.status(200).json(data);
 }

@@ -13,8 +13,8 @@ const postDelete = async (companyId, postId) => {
     return await postDao.postDelete(companyId, postId);
 }
 
-const getPost = async () => {
-    return await postDao.getPost();
+const getPostList = async () => {
+    return await postDao.getPostList();
 }
 
 const getSearchPost = async (search) => {
@@ -25,10 +25,15 @@ const getSearchPost = async (search) => {
     return result;
 }
 
+const getPostDetails = async (companyId, postId) => {
+    return await postDao.getPostDetails(companyId, postId);
+}
+
 module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPost,
-    getSearchPost
+    getPostList,
+    getSearchPost,
+    getPostDetails
 }

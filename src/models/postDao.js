@@ -46,7 +46,7 @@ const postDelete = async (companyId, postId) => {
         .execute()
 }
 
-const getPost = async () => {
+const getPostlist = async () => {
     return await AppDataSource
         .createQueryBuilder()
         .select([
@@ -86,10 +86,35 @@ const getSearchPost = async (search) => {
         .execute()
 }
 
+const getPostDetails = async (companyId, postId) => {
+    const [result] = await AppDataSource.query(
+        `
+        SELECT
+            p.id,
+            p.position,
+            p.technology_stack,
+            p.content,
+            p.compensation,
+            c.name,
+            c.location,
+            c.region,
+            (SELECT JSON_ARRAYAGG(
+                p.id
+            ) FROM posts p
+            WHERE p.company_id = ${companyId} AND p.id != ${postId}
+            ) AS anotherPost
+        FROM posts p
+        INNER JOIN companies c ON p.company_id = c.id
+        WHERE p.id = ${postId};
+        `)
+    return result;
+}
+
 module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPost,
-    getSearchPost
+    getPostlist,
+    getSearchPost,
+    getPostDetails
 }

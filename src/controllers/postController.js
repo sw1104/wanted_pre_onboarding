@@ -28,7 +28,7 @@ const postDelete = async (req, res) => {
     res.status(200).json({ message: "POST DELETED" })
 }
 
-const getPost = async (req, res) => {
+const getPostList = async (req, res) => {
     console.log(req.params)
     const data = await postService.getPost();
     res.status(200).json(data);
@@ -36,15 +36,22 @@ const getPost = async (req, res) => {
 
 const getSearchPost = async (req, res) => {
     const { search } = req.params;
-
     const data = await postService.getSearchPost(search);
     res.status(200).json(data);
 }
+
+const getPostDetails = async (req, res) => {
+    const { companyId, postId } = req.params;
+    const data = await postService.getPostDetails(companyId, postId);
+    res.status(200).json(data);
+}
+
 
 module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPost,
-    getSearchPost
+    getPostList,
+    getSearchPost,
+    getPostDetails
 }

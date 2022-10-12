@@ -13,7 +13,7 @@ const AppDataSource = new DataSource({
     database: process.env.TYPEORM_DATABASE,
     entities: [User, Company, Post, Application],
     synchronize: false,
-    logging: true
+    logging: false
 });
 
 module.exports = {

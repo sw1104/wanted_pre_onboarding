@@ -38,7 +38,7 @@ module.exports = new EntitySchema({
             joinColumn: {
                 name: "company_id"
             },
-            cascade: true
+            onDelete: "CASCADE"
         }
     }
 });

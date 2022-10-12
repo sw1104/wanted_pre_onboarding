@@ -1,12 +1,13 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const http = require("http");
+require("dotenv").config();
 
 const { createApp } = require("./app");
 const { AppDataSource } = require("./src/models/dataSource");
 
 const startServer = async () => {
-    const PORT = process.env.PORT
     const app = createApp();
+    const server = http.createServer(app);
+    const PORT = process.env.PORT
 
     AppDataSource
         .initialize()
@@ -18,11 +19,11 @@ const startServer = async () => {
             AppDataSource.destroy();
         });
 
-    app.get("/ping", (req, res, next) => {
+    app.get("/ping", (req, res) => {
         res.status(200).json({ message: "pong" });
     })
 
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`🚀 Listening on Port ${PORT} 🚀`);
     });
 }

@@ -2,10 +2,11 @@
   "name": "wanted_pre_onboarding",
   "version": "1.0.0",
   "description": "wanted pre onboarding을 위한 저장소 입니다.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config",
+    "dev": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config --coverage"
   },
   "repository": {
     "type": "git",

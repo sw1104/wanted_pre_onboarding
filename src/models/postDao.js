@@ -17,7 +17,7 @@ const postRegistration = async (companyId, position, compensation, content, tech
         .execute()
 }
 
-const postEdit = async (companyId, postId, position, compensation, content, technologyStack) => {
+const postEdit = async (postId, position, compensation, content, technologyStack) => {
     return await AppDataSource
         .createQueryBuilder()
         .update(Post)
@@ -29,24 +29,22 @@ const postEdit = async (companyId, postId, position, compensation, content, tech
         })
         .where({
             id: postId,
-            company_id: companyId
         })
         .execute()
 }
 
-const postDelete = async (companyId, postId) => {
+const postDelete = async (postId) => {
     return await AppDataSource
         .createQueryBuilder()
         .delete()
         .from(Post)
         .where({
             id: postId,
-            company_id: companyId
         })
         .execute()
 }
 
-const getPostlist = async () => {
+const getPostList = async () => {
     return await AppDataSource
         .createQueryBuilder()
         .select([
@@ -86,7 +84,7 @@ const getSearchPost = async (search) => {
         .execute()
 }
 
-const getPostDetails = async (companyId, postId) => {
+const getPostDetails = async (postId) => {
     const [result] = await AppDataSource.query(
         `
         SELECT
@@ -101,7 +99,7 @@ const getPostDetails = async (companyId, postId) => {
             (SELECT JSON_ARRAYAGG(
                 p.id
             ) FROM posts p
-            WHERE p.company_id = ${companyId} AND p.id != ${postId}
+            WHERE p.id != ${postId} AND p.company_id = c.id
             ) AS anotherPost
         FROM posts p
         INNER JOIN companies c ON p.company_id = c.id
@@ -110,11 +108,20 @@ const getPostDetails = async (companyId, postId) => {
     return result;
 }
 
+const getPostExists = async (postId) => {
+    return await AppDataSource
+        .getRepository(Post)
+        .createQueryBuilder("posts")
+        .where("posts.id = :post", { post: postId })
+        .getOne()
+}
+
 module.exports = {
     postRegistration,
     postEdit,
     postDelete,
-    getPostlist,
+    getPostList,
     getSearchPost,
-    getPostDetails
+    getPostDetails,
+    getPostExists
 }

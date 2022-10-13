@@ -1,22 +1,22 @@
 const BaseError = require("../middlewares/baseError");
 const postDao = require("../models/postDao");
 
-const createPost = async (companyId, position, compensation, content, technologyStack) => await postDao.createPost(companyId, position, compensation, content, technologyStack);
+const postRegistration = async (companyId, position, compensation, content, technologyStack) => await postDao.postRegistration(companyId, position, compensation, content, technologyStack);
 
-const editPost = async (postId, position, compensation, content, technologyStack) => {
+const postEdit = async (postId, position, compensation, content, technologyStack) => {
     const postExist = await postDao.getPostExists(postId)
 
     if (!postExist) throw new BaseError("POST DOES NOT EXIST", 400);
 
-    return await postDao.editPost(postId, position, compensation, content, technologyStack);
+    return await postDao.postEdit(postId, position, compensation, content, technologyStack);
 }
 
-const deletePost = async (postId) => {
+const postDelete = async (postId) => {
     const postExist = await postDao.getPostExists(postId)
 
     if (!postExist) throw new BaseError("POST DOES NOT EXIST", 400);
 
-    return await postDao.deletePost(postId);
+    return await postDao.postDelete(postId);
 }
 
 const getPostList = async () => await postDao.getPostList();
@@ -39,9 +39,9 @@ const getPostDetails = async (postId) => {
 
 
 module.exports = {
-    createPost,
-    editPost,
-    deletePost,
+    postRegistration,
+    postEdit,
+    postDelete,
     getPostList,
     getSearchPost,
     getPostDetails

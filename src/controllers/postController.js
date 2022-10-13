@@ -1,26 +1,26 @@
 const postService = require("../services/postService");
 const BaseError = require("../middlewares/BaseError");
 
-const createPost = async (req, res) => {
+const postRegistration = async (req, res) => {
     const { companyId, position, compensation, content, technologyStack } = req.body;
 
     if (!companyId || !position || !compensation || !content || !technologyStack) throw new BaseError("KEY ERROR", 400);
 
-    await postService.createPost(companyId, position, compensation, content, technologyStack);
+    await postService.postRegistration(companyId, position, compensation, content, technologyStack);
     res.status(201).json({ message: "JOB POSTING COMPLETED" });
 }
 
-const editPost = async (req, res) => {
+const postEdit = async (req, res) => {
     const { postId } = req.params;
     const { position, compensation, content, technologyStack } = req.body;
 
-    await postService.editPost(postId, position, compensation, content, technologyStack);
+    await postService.postEdit(postId, position, compensation, content, technologyStack);
     res.status(201).json({ message: "POST EDITED" });
 }
 
-const deletePost = async (req, res) => {
+const postDelete = async (req, res) => {
     const { postId } = req.params;
-    await postService.deletePost(postId);
+    await postService.postDelete(postId);
     res.status(200).json({ message: "POST DELETED" });
 }
 
@@ -43,9 +43,9 @@ const getPostDetails = async (req, res) => {
 
 
 module.exports = {
-    createPost,
-    editPost,
-    deletePost,
+    postRegistration,
+    postEdit,
+    postDelete,
     getPostList,
     getSearchPost,
     getPostDetails

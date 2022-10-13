@@ -2,7 +2,7 @@ const { AppDataSource } = require("./dataSource");
 const Post = require("../entities/Post");
 const Company = require("../entities/Company");
 
-const createPost = async (companyId, position, compensation, content, technologyStack) => {
+const postRegistration = async (companyId, position, compensation, content, technologyStack) => {
     return await AppDataSource
         .createQueryBuilder()
         .insert()
@@ -17,7 +17,7 @@ const createPost = async (companyId, position, compensation, content, technology
         .execute()
 }
 
-const editPost = async (postId, position, compensation, content, technologyStack) => {
+const postEdit = async (postId, position, compensation, content, technologyStack) => {
     return await AppDataSource
         .createQueryBuilder()
         .update(Post)
@@ -33,7 +33,7 @@ const editPost = async (postId, position, compensation, content, technologyStack
         .execute()
 }
 
-const deletePost = async (postId) => {
+const postDelete = async (postId) => {
     return await AppDataSource
         .createQueryBuilder()
         .delete()
@@ -117,9 +117,9 @@ const getPostExists = async (postId) => {
 }
 
 module.exports = {
-    createPost,
-    editPost,
-    deletePost,
+    postRegistration,
+    postEdit,
+    postDelete,
     getPostList,
     getSearchPost,
     getPostDetails,
